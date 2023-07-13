@@ -1,5 +1,11 @@
-const User = require('./User');
+const User = require("./User");
+const Appointment = require("./appointment");
+const Service = require("./Services");
 const Stylist = require('./Stylist');
-const Thought = require('./Thought');
 
-module.exports = { User, Thought };
+module.exports = {
+  User,
+  Appointment,
+  Service,
+  Stylist,
+};
