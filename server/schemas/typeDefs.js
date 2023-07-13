@@ -6,10 +6,9 @@ const typeDefs = gql`
     username: String
     email: String
     password: String
-    thoughts: [Thought]!
   }
 
-  Type Stylist {
+  type Stylist {
     _id: ID
     stylistName: String
   }
@@ -18,7 +17,7 @@ const typeDefs = gql`
     _id: ID
     serviceName: String
     serviceDescription: String
-    servicePrice: Number
+    servicePrice: String
     customerNotes: String
   }
 
@@ -26,7 +25,7 @@ const typeDefs = gql`
     _id: ID
     customerName: String
     stylistName: String
-    appointmentDate: Date
+    appointmentDate: String
     appointmentTime: String
   }
 
@@ -39,8 +38,8 @@ const typeDefs = gql`
     users: [User]
     user(username: String!): User
     stylists: [Stylist]
-    thoughts(username: String): [Thought]
-    thought(thoughtId: ID!): Thought
+    appointments: [Appointment]
+    appointment(appointmentId: ID!): Appointment
     me: User
   }
 
@@ -48,10 +47,8 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addStylist(stylistName: String!): Stylist
-    addThought(thoughtText: String!): Thought
-    addComment(thoughtId: ID!, commentText: String!): Thought
-    removeThought(thoughtId: ID!): Thought
-    removeComment(thoughtId: ID!, commentId: ID!): Thought
+    addAppointment(customerName: String!, stylistName: String!, appointmentDate: String!, appointmentTime: String!): Appointment
+    removeAppointment(appointmentId: ID!): Appointment
   }
 `;
 
