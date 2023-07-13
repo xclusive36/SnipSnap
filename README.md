@@ -21,7 +21,7 @@
 ## Credits
 Collaborators for this project:   
 Joshua Cavell - https://github.com/xclusive36   
-Nicholas Loeffler - httpe://github.com/Nickloeffler999   
+Nicholas Loeffler - https://github.com/Nickloeffler999   
 Mary Dault - https://github.com/MaryVDa   
 Alvin Turner - https://github.com/ATurner3x    
 Griffon Dean - https://github.com/griffdean   
