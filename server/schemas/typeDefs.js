@@ -14,19 +14,20 @@ const typeDefs = gql`
     stylistName: String
   }
 
-  type Thought {
+  type Service {
     _id: ID
-    thoughtText: String
-    thoughtAuthor: String
-    createdAt: String
-    comments: [Comment]!
+    serviceName: String
+    serviceDescription: String
+    servicePrice: Number
+    customerNotes: String
   }
 
-  type Comment {
+  type Appointment {
     _id: ID
-    commentText: String
-    commentAuthor: String
-    createdAt: String
+    customerName: String
+    stylistName: String
+    appointmentDate: Date
+    appointmentTime: String
   }
 
   type Auth {
