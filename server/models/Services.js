@@ -1,20 +1,21 @@
 const { Schema, model } = require('mongoose');
 
 
+
 const serviceSchema = new Schema ({
-  serviceName: {
+  name: {
     type: String,
     required: true
   }, 
-  servicePrice: {
+  price: {
     type: Number,
     required: true
   },
-  serviceDescription: {
+  description: {
     type: String,
     required: true
   },
-  customerNotes: {
+  notes: {
     type: String,
     required: true,
     minLength: 1,
