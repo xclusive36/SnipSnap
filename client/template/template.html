@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
+    <meta name="viewport" content="width=device-width", initial-scale="1.0" />
+    <title>SnipSnap</title>
+    <link rel="stylesheet" type="text/css" href="client/template/template.css">
+    <script type="text/javascript" src="client/template/template.js"></script>
+</head>
+<body>
+    <header>
+        <h1>SnipSnap</h1>
+    </header>
+    <container>
+        <div class="book-here">
+            <h3>Book Your Appointment Here!</h3>
+        </div>
+        <div class="info-input">
+            <label for="info-input">Enter name and email:</label>
+            <input type="text" name="name" placeholder="Name">
+            <input type="text" name="email" placeholder="Email">
+        </div>
+        <div class="services">
+            <label for="services">Select Service:</label>
+            <button class="dropdown-btn">Services</button>
+            <div class="dropdown-container">
+                <a href="#">Haircut</a>
+                <a href="#">Color</a>
+                <a href="#">Perm</a>
+                <a href="#">Extensions</a>
+                <a href="#">Style</a>
+            </div>  
+        </div>
+        <div class="appointment">
+            <label for="appointment-time">Choose a date and time for your appointment:</label>
+            <input type="datetime-local" id="appointment-time"
+                name="appointment-time" value="2023-12-07T19:30"
+                min="2023-12-07T00:00" max="2023-31-12T00:00">
+        </div>
+    </container>
+    <footer>
+        <p>SnipSnap &copy; 2023</p>
+    </footer>
+    <script src="index.js"></script>
+</body>
+</html>
