@@ -70,19 +70,18 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in!");
     },
 
-    removeAppointment: async (parent, { thoughtId }, context) => {
+    removeAppointment: async (parent, { appointmentId }, context) => {
       if (context.user) {
-        const thought = await Thought.findOneAndDelete({
-          _id: thoughtId,
-          thoughtAuthor: context.user.username,
+        const appointment = await Appointment.findOneAndDelete({
+          _id: appointmentId,
         });
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { thoughts: thought._id } }
+          { $pull: { appointments: appointment._id } }
         );
 
-        return thought;
+        return appointment;
       }
       throw new AuthenticationError("You need to be logged in!");
     },
