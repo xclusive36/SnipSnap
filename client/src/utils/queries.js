@@ -1,43 +1,50 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
+
+export const QUERY_STYLISTS = gql`
+  query getStylists {
+    stylists {
+      _id
+      stylistName
+    }
+  }
+`;
+
+export const QUERY_SERVICES = gql`
+  query getServices {
+    services {
+      _id
+      serviceName
+      serviceDescription
+      servicePrice
+      customerNotes
+    }
+  }
+`;
+
+export const QUERY_APPOINTMENTS = gql`
+  query getAppointments {
+    appointments {
+      _id
+      customerName
+      stylistName
+      appointmentDate
+      appointmentTime
+    }
+  }
+`;
 
 export const QUERY_USER = gql`
-  query user($username: String!) {
+  query getUser($username: String!) {
     user(username: $username) {
       _id
       username
       email
-      thoughts {
+      appointments {
         _id
-        thoughtText
-        createdAt
-      }
-    }
-  }
-`;
-
-export const QUERY_THOUGHTS = gql`
-  query getThoughts {
-    thoughts {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-    }
-  }
-`;
-
-export const QUERY_SINGLE_THOUGHT = gql`
-  query getSingleThought($thoughtId: ID!) {
-    thought(thoughtId: $thoughtId) {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      comments {
-        _id
-        commentText
-        commentAuthor
-        createdAt
+        customerName
+        stylistName
+        appointmentDate
+        appointmentTime
       }
     }
   }
@@ -49,11 +56,12 @@ export const QUERY_ME = gql`
       _id
       username
       email
-      thoughts {
+      appointments {
         _id
-        thoughtText
-        thoughtAuthor
-        createdAt
+        customerName
+        stylistName
+        appointmentDate
+        appointmentTime
       }
     }
   }
