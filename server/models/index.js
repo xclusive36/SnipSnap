@@ -1,11 +1,11 @@
 const User = require("./User");
 const Appointment = require("./appointment");
-const Service = require("./Services");
-const Stylist = require('./Stylist');
+const Stylist = require("./Stylist");
+const Service = require("./Service");
 
 module.exports = {
   User,
   Appointment,
-  Service,
   Stylist,
+  Service,
 };

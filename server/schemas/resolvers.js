@@ -1,19 +1,20 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { User, Stylist, Appointment } = require("../models");
+const { User, Stylist, Appointment, Service } = require("../models");
 const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
     users: async () => {
       return User.find();
-      // .populate("appointments");
     },
     user: async (parent, { username }) => {
       return User.findOne({ username });
-      // .populate("appointments");
     },
     stylists: async () => {
       return Stylist.find();
+    },
+    services: async () => {
+      return Service.find();
     },
     appointments: async (parent, { username }) => {
       const params = username ? { username } : {};
@@ -25,7 +26,6 @@ const resolvers = {
     me: async (parent, args, context) => {
       if (context.user) {
         return User.findOne({ _id: context.user._id });
-        // .populate("appointments");
       }
       throw new AuthenticationError("You need to be logged in!");
     },
@@ -56,6 +56,9 @@ const resolvers = {
     },
     addStylist: async (parent, { stylistName }) => {
       return Stylist.create({ stylistName });
+    },
+    addService: async (parent, args) => {
+      return Service.create(args);
     },
     addAppointment: async (parent, { appointmentInfo }, context) => {
       if (context.user) {

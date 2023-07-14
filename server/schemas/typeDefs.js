@@ -38,6 +38,7 @@ const typeDefs = gql`
     users: [User]
     user(username: String!): User
     stylists: [Stylist]
+    services: [Service]
     appointments: [Appointment]
     appointment(appointmentId: ID!): Appointment
     me: User
@@ -47,6 +48,7 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addStylist(stylistName: String!): Stylist
+    addService(serviceName: String!, serviceDescription: String, servicePrice: String!, customerNotes: String): Service
     addAppointment(customerName: String!, stylistName: String!, appointmentDate: String!, appointmentTime: String!): Appointment
     removeAppointment(appointmentId: ID!): Appointment
   }
