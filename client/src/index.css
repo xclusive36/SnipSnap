@@ -3,7 +3,6 @@ http://ionicframework.com/docs/theming/ */
 
 /** Ionic CSS Variables **/
 :root {
-  --ion-font-family: "Poppins", "Roboto", sans-serif;
 
   /** primary **/
   --ion-color-primary: #004b93;
@@ -108,21 +107,6 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-contrast-rgb: var(--ion-color-white-contrast-rgb);
   --ion-color-shade: var(--ion-color-white-shade);
   --ion-color-tint: var(--ion-color-white-tint);
-}
-
-@font-face {
-  font-family: "Poppins";
-  src: url("./assets/fonts/Poppins-Regular.ttf");
-}
-@font-face {
-  font-family: "Poppins";
-  src: url("./assets/fonts/Poppins-Medium.ttf");
-  font-weight: 500;
-}
-@font-face {
-  font-family: "Poppins";
-  src: url("./assets/fonts/Poppins-SemiBold.ttf");
-  font-weight: 600;
 }
 
 @media (prefers-color-scheme: dark) {
