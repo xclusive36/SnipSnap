@@ -9,12 +9,12 @@ const Home = () => {
         <h2>Book Your Appointment Here!</h2>
       </div>
       <div className="info-input">
-        <label for="info-input">Enter name and email:</label>
+        <label htmlFor="info-input">Enter name and email:</label>
         <input type="text" id="name" name="Name" />
         <input type="text" id="email" name="Email" />
       </div>
       <div className="services">
-        <label for="services">Select a service:</label>
+        <label htmlFor="services">Select a service:</label>
         <button className="service-btn">Haircut</button>
         <button className="service-btn">Color</button>
         <button className="service-btn">Perm</button>
