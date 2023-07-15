@@ -57,6 +57,28 @@ export const ADD_APPOINTMENT = gql`
   }
 `;
 
+export const ADD_SERVICE = gql`
+  mutation addService(
+    $serviceName: String!
+    $serviceDescription: String!
+    $servicePrice: String!
+    $customerNotes: String!
+  ) {
+    addService(
+      serviceName: $serviceName
+      serviceDescription: $serviceDescription
+      servicePrice: $servicePrice
+      customerNotes: $customerNotes
+    ) {
+      _id
+      serviceName
+      serviceDescription
+      servicePrice
+      customerNotes
+    }
+  }
+`;
+
 export const REMOVE_APPOINTMENT = gql`
   mutation removeAppointment($appointmentId: ID!) {
     removeAppointment(appointmentId: $appointmentId) {
