@@ -4,7 +4,7 @@ import { IonToolbar } from "@ionic/react";
 const Footer = () => {
   return (
     <footer>
-      <IonToolbar className="ion-text-center">Copywrite 2023 by SnipSnap</IonToolbar>
+      <IonToolbar className="ion-text-center">Copyright 2023 &#169; SnipSnap</IonToolbar>
     </footer>
   );
 };

@@ -1,28 +1,42 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { IonButtons, IonButton, IonToolbar, IonTitle } from "@ionic/react";
-
+import { useLocation } from "react-router-dom";
+import {
+  IonButtons,
+  IonButton,
+  IonToolbar,
+  IonTitle,
+  IonIcon,
+} from "@ionic/react";
 import Auth from "../../utils/auth";
+import { arrowBackOutline } from "ionicons/icons";
 
 const Header = () => {
+  const location = useLocation();
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
   };
+
   return (
     <header>
       <IonToolbar>
-        <IonButtons slot="start">
-          <IonButton routerLink="/">Home</IonButton>
-        </IonButtons>
-        <IonTitle>SnipSnap</IonTitle>
+        {location.pathname !== "/" && (
+          <IonButtons slot="start">
+            <IonButton routerLink="/">
+              <IonIcon icon={arrowBackOutline} />
+            </IonButton>
+          </IonButtons>
+        )}
+        <IonTitle mode="md">SnipSnap</IonTitle>
         <IonButtons slot="end">
           {Auth.loggedIn() ? (
             <>
-              <IonButton routerLink="/me">
-                {Auth.getProfile().data.username}'s profile
-              </IonButton>
-              <IonButton onClick={logout}>Logout</IonButton>
+              {location.pathname === "/" && (
+                <IonButton routerLink="/me">My Appointments</IonButton>
+              )}
+              {location.pathname !== "/" && (
+                <IonButton onClick={logout}>Logout</IonButton>
+              )}
             </>
           ) : (
             <>
