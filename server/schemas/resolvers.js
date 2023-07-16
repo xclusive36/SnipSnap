@@ -60,10 +60,17 @@ const resolvers = {
     addService: async (parent, args) => {
       return Service.create(args);
     },
-    addAppointment: async (parent, { appointmentInfo }, context) => {
+    addAppointment: async (
+      parent,
+      { customerName, stylistName, appointmentDate, appointmentTime },
+      context
+    ) => {
       if (context.user) {
         const appointment = await Appointment.create({
-          appointmentInfo,
+          customerName,
+          stylistName,
+          appointmentDate,
+          appointmentTime,
         });
 
         await User.findOneAndUpdate(
