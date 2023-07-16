@@ -23,6 +23,9 @@ const resolvers = {
     appointment: async (parent, { appointmentId }) => {
       return Appointment.findOne({ _id: appointmentId });
     },
+    appointmentByUser: async (parent, { username }) => {
+      return Appointment.find({ customerName: username });
+    },
     me: async (parent, args, context) => {
       if (context.user) {
         return User.findOne({ _id: context.user._id });

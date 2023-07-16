@@ -33,6 +33,30 @@ export const QUERY_APPOINTMENTS = gql`
   }
 `;
 
+export const QUERY_APPOINTMENT = gql`
+  query getAppointment($appointmentId: ID!) {
+    appointment(appointmentId: $appointmentId) {
+      _id
+      customerName
+      stylistName
+      appointmentDate
+      appointmentTime
+    }
+  }
+`;
+
+export const QUERY_APPOINTMENT_BY_USER = gql`
+  query getAppointmentByUser($username: String!) {
+    appointmentByUser(username: $username) {
+      _id
+      customerName
+      stylistName
+      appointmentDate
+      appointmentTime
+    }
+  }
+`;
+
 export const QUERY_USER = gql`
   query getUser($username: String!) {
     user(username: $username) {

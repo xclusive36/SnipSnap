@@ -42,6 +42,7 @@ const typeDefs = gql`
     services: [Service]
     appointments: [Appointment]
     appointment(appointmentId: ID!): Appointment
+    appointmentByUser(username: String!): [Appointment]
     me: User
   }
 
