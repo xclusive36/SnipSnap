@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonText } from '@ionic/react';
+import { IonPage, IonToolbar, IonList, IonItem, IonLabel, IonText } from '@ionic/react';
 
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
 
@@ -28,58 +28,47 @@ const Profile = () => {
   if (!user?.username) {
     return (
       <IonPage>
-        <IonContent>
-          <IonHeader>
-            <IonToolbar>
+        <IonToolbar>
 
-              <IonTitle>You need to be logged in</IonTitle>
-              
-            </IonToolbar>
-          </IonHeader>
-          <IonContent>
-            <IonText>
-              <h4>
-                You need to be logged in to see this. Use the navigation links above to
-                sign up or log in!
-              </h4>
-            </IonText>
-          </IonContent>
-        </IonContent>
+          <h4>You need to be logged in</h4>
+
+        </IonToolbar>
+        <IonText>
+          
+          <h4>
+            You need to be logged in to see this. Use the navigation links above to
+            sign up or log in!
+          </h4>
+
+        </IonText>
       </IonPage>
     );
   }
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>
+      <IonToolbar>
+        
+        <h2>
+          Viewing {userParam ? `${user.username}'s` : 'your'} profile.
+        </h2>
 
-            Viewing {userParam ? `${user.username}'s` : 'your'} profile.
-         
-          </IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent>
-        <IonList>
-          
-          {user?.appointments?.length ? (
-            user.appointments.map((appointment, index) => (
+      </IonToolbar>
+      <IonList>
+        {user?.appointments?.length ? (
+          user.appointments.map((appointment, index) => (
+            <IonItem key={index}>
+              <IonLabel>{appointment.title}</IonLabel>
+            </IonItem>
+          ))
+        ) : (
+          <IonText>
 
-              <IonItem key={index}>
-                <IonLabel>{appointment.title}</IonLabel>
-              </IonItem>
-           
-           ))
-          ) : (
-
-            <IonText>
-              <p>No appointments found.</p>
-              
-            </IonText>
-          )}
-        </IonList>
-      </IonContent>
+            <p>No appointments found.</p>
+            
+          </IonText>
+        )}
+      </IonList>
     </IonPage>
   );
 };
