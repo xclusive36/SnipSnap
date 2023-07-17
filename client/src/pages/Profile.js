@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonText } from '@ionic/react';
 
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
 
@@ -14,7 +15,8 @@ const Profile = () => {
   });
 
   const user = data?.me || data?.user || {};
-  // navigate to personal profile page if username is yours
+
+  // Navigate to personal profile page if the username is yours
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
     return <Navigate to="/me" />;
   }
@@ -25,31 +27,60 @@ const Profile = () => {
 
   if (!user?.username) {
     return (
-      <h4>
-        You need to be logged in to see this. Use the navigation links above to
-        sign up or log in!
-      </h4>
+      <IonPage>
+        <IonContent>
+          <IonHeader>
+            <IonToolbar>
+
+              <IonTitle>You need to be logged in</IonTitle>
+              
+            </IonToolbar>
+          </IonHeader>
+          <IonContent>
+            <IonText>
+              <h4>
+                You need to be logged in to see this. Use the navigation links above to
+                sign up or log in!
+              </h4>
+            </IonText>
+          </IonContent>
+        </IonContent>
+      </IonPage>
     );
   }
 
   return (
-    <div>
-      <div className="flex-row justify-center mb-3">
-        <h2 className="col-12 col-md-10 bg-dark text-light p-3 mb-5">
-          Viewing {userParam ? `${user.username}'s` : 'your'} profile.
-        </h2>
+    <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>
 
-        <div className="col-12 col-md-10 mb-5">
-        </div>
-        {!userParam && (
-          <div
-            className="col-12 col-md-10 mb-3 p-3"
-            style={{ border: '1px dotted #1a1a1a' }}
-          >
-          </div>
-        )}
-      </div>
-    </div>
+            Viewing {userParam ? `${user.username}'s` : 'your'} profile.
+         
+          </IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent>
+        <IonList>
+          
+          {user?.appointments?.length ? (
+            user.appointments.map((appointment, index) => (
+
+              <IonItem key={index}>
+                <IonLabel>{appointment.title}</IonLabel>
+              </IonItem>
+           
+           ))
+          ) : (
+
+            <IonText>
+              <p>No appointments found.</p>
+              
+            </IonText>
+          )}
+        </IonList>
+      </IonContent>
+    </IonPage>
   );
 };
 
