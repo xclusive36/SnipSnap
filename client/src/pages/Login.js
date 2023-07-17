@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
-import { IonCard, IonInput, IonButton, IonItem } from '@ionic/react';
+import { IonCard, IonInput, IonButton, IonItem, IonLabel } from '@ionic/react';
 
 import Auth from '../utils/auth';
 
@@ -56,6 +56,7 @@ const Login = (props) => {
               <IonCard>
               <form onSubmit={handleFormSubmit}>
                 <IonItem>
+                  <IonLabel position="stacked">Email: </IonLabel>
                   <IonInput
                     className="form-input"
                     placeholder="Your email"
@@ -66,6 +67,7 @@ const Login = (props) => {
                   />
                 </IonItem>
                 <IonItem>
+                  <IonLabel position="stacked">Password: </IonLabel>
                   <IonInput
                     className="form-input"
                     placeholder="******"
