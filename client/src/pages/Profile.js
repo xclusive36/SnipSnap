@@ -29,13 +29,17 @@ const Profile = () => {
     return (
       <IonPage>
         <IonToolbar>
+
           <h4>You need to be logged in</h4>
+
         </IonToolbar>
         <IonText>
+          
           <h4>
             You need to be logged in to see this. Use the navigation links above to
             sign up or log in!
           </h4>
+
         </IonText>
       </IonPage>
     );
@@ -44,9 +48,11 @@ const Profile = () => {
   return (
     <IonPage>
       <IonToolbar>
+        
         <h2>
           Viewing {userParam ? `${user.username}'s` : 'your'} profile.
         </h2>
+
       </IonToolbar>
       <IonList>
         {user?.appointments?.length ? (
@@ -57,7 +63,9 @@ const Profile = () => {
           ))
         ) : (
           <IonText>
+
             <p>No appointments found.</p>
+            
           </IonText>
         )}
       </IonList>
