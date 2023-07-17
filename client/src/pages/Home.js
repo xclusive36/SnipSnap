@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useQuery } from "@apollo/client";
+import Auth from "../utils/auth";
+import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_SERVICES, QUERY_STYLISTS } from "../utils/queries";
+import { ADD_APPOINTMENT, REMOVE_APPOINTMENT } from "../utils/mutations";
 
 import {
   IonDatetime,
@@ -13,98 +15,197 @@ import {
   IonLabel,
   IonChip,
   IonAvatar,
-} from "@ionic/react";
+  IonText,
+  IonSelect,
+  IonSelectOption,
+  IonButton,
+} from "@ionic/react"; // Import Ionic components.
 
 const Home = () => {
-  const businessAdress = "1234 Main St. Anytown, USA 12345";
+  // Begin Home Page component.
+  const businessAdress = "1234 Main St. Anytown, USA 12345"; // Define business address.
   const { loading: stylistLoading, data: stylistData } =
-    useQuery(QUERY_STYLISTS);
+    useQuery(QUERY_STYLISTS); // GraphQL query for stylists.
   const { loading: serviceLoading, data: serviceData } =
-    useQuery(QUERY_SERVICES);
-  const [stylists, setStylists] = useState([]);
-  const [services, setServices] = useState([]);
+    useQuery(QUERY_SERVICES); // GraphQL query for services.
+  const [addAppointment] = useMutation(ADD_APPOINTMENT); // GraphQL mutation for appointments.
+  const [removeAppointment] = useMutation(REMOVE_APPOINTMENT); // GraphQL mutation for appointments.
+  const [stylists, setStylists] = useState([]); // Set initial state for stylists array.
+  const [services, setServices] = useState([]); // Set initial state for services array.
+
+  const isWeekday = (dateString) => {
+    // Checks if date is a weekday for the calendar.
+    // Returns true if it is a weekday, false if it is not.
+    // That way, we can disable weekends on the calendar.
+    const date = new Date(dateString); // Create a new date object.
+    const utcDay = date.getUTCDay(); // Get the UTC day of the week.
+    return utcDay !== 0 && utcDay !== 6; // Return true if it is not a weekend.
+  };
 
   useEffect(() => {
+    // useEffect hook to set state for stylists.
     if (stylistData) {
-      setStylists(stylistData.stylists);
+      // If stylistData is available, then...
+      setStylists(stylistData.stylists); // Set the state for stylists.
     }
-  }, [stylistData]);
+  }, [stylistData]); // Run this hook when stylistData changes.
 
   useEffect(() => {
+    // useEffect hook to set state for services.
     if (serviceData) {
-      setServices(serviceData.services);
+      // If serviceData is available, then...
+      setServices(serviceData.services); // Set the state for services.
     }
-  }, [serviceData]);
+  }, [serviceData]); // Run this hook when serviceData changes.
+
+  const handleSubmit = (e) => {
+    // Handle form submission.
+    e.preventDefault(); // Prevent default form submission.
+
+    const headers = {
+      // define headers variable for simplicity
+      headers: {
+        // define headers
+        Authorization: `Bearer ${Auth.getToken()}`, // set Authorization to Bearer token
+      },
+    };
+
+    const token = Auth.loggedIn() ? Auth.getToken() : null; // define token variable as Auth.loggedIn() ? Auth.getToken() : null
+
+    if (!token) {
+      // if token is null
+      return false; // return false
+    }
+
+    try {
+      // try
+      const customerName = Auth.getProfile().data.username; // Get the customer name from the Auth object.
+      const serviceId = e.target[0].value; // Get the service ID from the form.
+      let appointmentDateAndTime = e.target[1].value; // Get the appointment date from the form.
+      appointmentDateAndTime = appointmentDateAndTime.split("T"); // Split the date and time string into an array.
+      const appointmentDate = appointmentDateAndTime[0]; // Get the appointment date from the array.
+      const appointmentTime = appointmentDateAndTime[1].substring(
+        0,
+        appointmentDateAndTime[1].length - 3
+      ); // Get the appointment time from the array and remove the seconds.
+
+      // removeAppointment({
+      //   // Remove the appointment from the database using the variables from the form.
+      //   // The variables are defined in the REMOVE_APPOINTMENT mutation in client/src/utils/mutations.js.
+      //   variables: {
+      //     appointmentId: "64b40de3027d09e3d53af3d9",
+      //   },
+      //   context: headers, // set context to headers
+      // });
+
+      addAppointment({
+        // Add the appointment to the database using the variables from the form.
+        // The variables are defined in the ADD_APPOINTMENT mutation in client/src/utils/mutations.js.
+        variables: {
+          customerName: customerName,
+          stylistName: serviceId,
+          appointmentDate: appointmentDate,
+          appointmentTime: appointmentTime,
+        },
+        context: headers, // set context to headers
+      });
+      console.log("Appointment added!"); // console.log("Appointment added!")
+    } catch (err) {
+      // catch
+      console.error(err); // console.error(err)
+    }
+  };
 
   return (
     <>
       <IonCard>
         <IonCardHeader>
           <IonCardTitle>Our Address: </IonCardTitle>
-          {businessAdress}
         </IonCardHeader>
+        <IonCardContent>{businessAdress}</IonCardContent>
       </IonCard>
       <IonCard>
         <IonCardHeader>
           <IonCardTitle>Our Stylists: </IonCardTitle>
         </IonCardHeader>
-        <IonCardContent>
+        <IonCardContent className="ion-text-center">
           {stylistLoading ? (
-              <div>Loading Stylists...</div>
-            ) : (
-              stylists.map((stylist) => (
-                <IonChip key={stylist._id}>
-            <IonAvatar>
-              <img
-                alt="Silhouette of a person's head"
-                src="https://ionicframework.com/docs/img/demos/avatar.svg"
-              />
-            </IonAvatar>
-            <IonLabel>{stylist.stylistName}</IonLabel>
-          </IonChip>
-              ))
-            )}
+            <div>Loading Stylists...</div>
+          ) : (
+            stylists.map((stylist) => (
+              <IonChip key={stylist._id}>
+                <IonAvatar>
+                  <img
+                    alt="Silhouette of a person's head"
+                    src="https://ionicframework.com/docs/img/demos/avatar.svg"
+                  />
+                </IonAvatar>
+                <IonLabel>{stylist.stylistName}</IonLabel>
+              </IonChip>
+            ))
+          )}
         </IonCardContent>
       </IonCard>
       <IonCard>
         <IonCardHeader>
           <IonCardTitle>Our Services: </IonCardTitle>
+        </IonCardHeader>
+        <IonCardContent>
           <IonList>
             {serviceLoading ? (
               <div>Loading Services...</div>
             ) : (
               services.map((service) => (
                 <IonItem key={service._id}>
-                  <IonLabel>{service.serviceName}: {service.servicePrice}</IonLabel>
+                  <IonLabel>{service.serviceName}</IonLabel>
+                  <IonText slot="end">{service.servicePrice}</IonText>
                 </IonItem>
               ))
             )}
           </IonList>
-        </IonCardHeader>
+        </IonCardContent>
       </IonCard>
       <IonCard>
         <IonCardHeader>
-          <h2>Book Your Appointment Here!</h2>
+          <IonCardTitle>Book Your Appointment Here!</IonCardTitle>
         </IonCardHeader>
         <IonCardContent>
-          <div className="info-input">
-            <label htmlFor="info-input">Enter name and email:</label>
-            <input type="text" id="name" name="Name" />
-            <input type="text" id="email" name="Email" />
-          </div>
-          <div className="services">
-            <label htmlFor="services">Select a service:</label>
-            <button className="service-btn">Haircut</button>
-            <button className="service-btn">Color</button>
-            <button className="service-btn">Perm</button>
-            <button className="service-btn">Extensions</button>
-            <button className="service-btn">Style</button>
-          </div>
-          <IonDatetime
-            value="2023-12-31T09:00"
-            min="2023-07-13T09:00"
-            max="2023-12-30T20:00"
-          ></IonDatetime>
+          <form onSubmit={handleSubmit}>
+            <IonList>
+              <IonItem>
+                <IonSelect
+                  label="Select a service"
+                  labelPlacement="floating"
+                  disabled={Auth.loggedIn() ? false : true}
+                >
+                  {serviceLoading ? (
+                    <div>Loading Services...</div>
+                  ) : (
+                    services.map((service) => (
+                      <IonSelectOption key={service._id}>
+                        {service.serviceName}
+                      </IonSelectOption>
+                    ))
+                  )}
+                </IonSelect>
+              </IonItem>
+              <IonItem className="ion-padding-top ion-padding-bottom">
+                <IonDatetime
+                  minuteValues="0,30"
+                  isDateEnabled={isWeekday}
+                  mode="md"
+                  readonly={Auth.loggedIn() ? false : true}
+                ></IonDatetime>
+              </IonItem>
+              <IonButton
+                type="submit"
+                expand="block"
+                disabled={Auth.loggedIn() ? false : true}
+              >
+                {Auth.loggedIn() ? "Book Now!" : "Login to Book!"}
+              </IonButton>
+            </IonList>
+          </form>
         </IonCardContent>
       </IonCard>
     </>

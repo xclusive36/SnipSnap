@@ -23,6 +23,9 @@ const resolvers = {
     appointment: async (parent, { appointmentId }) => {
       return Appointment.findOne({ _id: appointmentId });
     },
+    appointmentByUser: async (parent, { username }) => {
+      return Appointment.find({ customerName: username });
+    },
     me: async (parent, args, context) => {
       if (context.user) {
         return User.findOne({ _id: context.user._id });
@@ -60,10 +63,17 @@ const resolvers = {
     addService: async (parent, args) => {
       return Service.create(args);
     },
-    addAppointment: async (parent, { appointmentInfo }, context) => {
+    addAppointment: async (
+      parent,
+      { customerName, stylistName, appointmentDate, appointmentTime },
+      context
+    ) => {
       if (context.user) {
         const appointment = await Appointment.create({
-          appointmentInfo,
+          customerName,
+          stylistName,
+          appointmentDate,
+          appointmentTime,
         });
 
         await User.findOneAndUpdate(
