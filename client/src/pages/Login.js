@@ -55,23 +55,27 @@ const Login = (props) => {
             ) : (
               <IonCard>
               <form onSubmit={handleFormSubmit}>
-                <IonInput
-                  className="form-input"
-                  placeholder="Your email"
-                  name="email"
-                  type="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                />
-                <IonInput
-                  className="form-input"
-                  placeholder="******"
-                  name="password"
-                  type="password"
-                  value={formState.password}
-                  onChange={handleChange}
-                />
-                <IonButton
+                <IonItem>
+                  <IonInput
+                    className="form-input"
+                    placeholder="Your email"
+                    name="email"
+                    type="email"
+                    value={formState.email}
+                    onChange={handleChange}
+                  />
+                </IonItem>
+                <IonItem>
+                  <IonInput
+                    className="form-input"
+                    placeholder="******"
+                    name="password"
+                    type="password"
+                    value={formState.password}
+                    onChange={handleChange}
+                  />
+                </IonItem>
+                <IonButton expand="full"
                   className="btn btn-block btn-primary"
                   style={{ cursor: 'pointer' }}
                   type="submit"
