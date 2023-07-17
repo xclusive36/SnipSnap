@@ -200,13 +200,18 @@ const Home = () => {
               </IonItem>
               <IonButton
                 type="submit"
-                id="open-toast"
+                onClick={() => setIsOpen(true)}
                 expand="block"
                 disabled={Auth.loggedIn() ? false : true}
               >
                 {Auth.loggedIn() ? "Book Now!" : "Login to Book!"}
               </IonButton>
-              <IonToast trigger="open-toast" message="Your Appointment was booked!" duration={5000}></IonToast>
+              <IonToast 
+              isOpen={isOpen}
+              message="Your Appointment was booked!"
+              onDidDismiss={() => setIsOpen(false)}
+              duration={5000}>
+              </IonToast>
             </IonList>
           </form>
         </IonCardContent>
