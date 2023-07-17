@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
+import { IonCard, IonInput, IonButton } from '@ionic/react';
 
 import Auth from '../utils/auth';
 
@@ -52,8 +53,9 @@ const Login = (props) => {
                 <Link to="/">back to the homepage.</Link>
               </p>
             ) : (
+              <IonCard>
               <form onSubmit={handleFormSubmit}>
-                <input
+                <IonInput
                   className="form-input"
                   placeholder="Your email"
                   name="email"
@@ -61,7 +63,7 @@ const Login = (props) => {
                   value={formState.email}
                   onChange={handleChange}
                 />
-                <input
+                <IonInput
                   className="form-input"
                   placeholder="******"
                   name="password"
@@ -69,14 +71,15 @@ const Login = (props) => {
                   value={formState.password}
                   onChange={handleChange}
                 />
-                <button
+                <IonButton
                   className="btn btn-block btn-primary"
                   style={{ cursor: 'pointer' }}
                   type="submit"
                 >
                   Submit
-                </button>
+                </IonButton>
               </form>
+              </IonCard>
             )}
 
             {error && (
