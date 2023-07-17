@@ -24,6 +24,7 @@ import {
 
 const Home = () => {
   // Begin Home Page component.
+  const [isOpen, setIsOpen] = useState(false);
   const businessAdress = "1234 Main St. Anytown, USA 12345"; // Define business address.
   const { loading: stylistLoading, data: stylistData } =
     useQuery(QUERY_STYLISTS); // GraphQL query for stylists.
@@ -110,6 +111,7 @@ const Home = () => {
         },
         context: headers, // set context to headers
       });
+      setIsOpen(true);
       console.log("Appointment added!"); // console.log("Appointment added!")
     } catch (err) {
       // catch
@@ -200,13 +202,17 @@ const Home = () => {
               </IonItem>
               <IonButton
                 type="submit"
-                id="open-toast"
                 expand="block"
                 disabled={Auth.loggedIn() ? false : true}
               >
                 {Auth.loggedIn() ? "Book Now!" : "Login to Book!"}
               </IonButton>
-              <IonToast trigger="open-toast" message="Your Appointment was booked!" duration={5000}></IonToast>
+              <IonToast 
+              isOpen={isOpen}
+              message="Your Appointment was booked!"
+              onDidDismiss={() => setIsOpen(false)}
+              duration={5000}>
+              </IonToast>
             </IonList>
           </form>
         </IonCardContent>
