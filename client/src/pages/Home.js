@@ -19,6 +19,7 @@ import {
   IonSelect,
   IonSelectOption,
   IonButton,
+  IonToast,
 } from "@ionic/react"; // Import Ionic components.
 
 const Home = () => {
@@ -199,11 +200,13 @@ const Home = () => {
               </IonItem>
               <IonButton
                 type="submit"
+                id="open-toast"
                 expand="block"
                 disabled={Auth.loggedIn() ? false : true}
               >
                 {Auth.loggedIn() ? "Book Now!" : "Login to Book!"}
               </IonButton>
+              <IonToast trigger="open-toast" message="Your Appointment was booked!" duration={5000}></IonToast>
             </IonList>
           </form>
         </IonCardContent>
