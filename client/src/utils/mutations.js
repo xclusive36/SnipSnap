@@ -41,18 +41,24 @@ export const ADD_APPOINTMENT = gql`
     $stylistName: String!
     $appointmentDate: String!
     $appointmentTime: String!
+    $appointmentType: String!
+    $appointmentCost: String!
   ) {
     addAppointment(
       customerName: $customerName
       stylistName: $stylistName
       appointmentDate: $appointmentDate
       appointmentTime: $appointmentTime
+      appointmentType: $appointmentType
+      appointmentCost: $appointmentCost
     ) {
       _id
       customerName
       stylistName
       appointmentDate
       appointmentTime
+      appointmentType
+      appointmentCost
     }
   }
 `;
@@ -87,6 +93,7 @@ export const REMOVE_APPOINTMENT = gql`
       stylistName
       appointmentDate
       appointmentTime
+      appointmentType
     }
   }
 `;

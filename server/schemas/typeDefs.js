@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
   type Stylist {
@@ -20,6 +20,8 @@ const typeDefs = gql`
     stylistName: String
     appointmentDate: String
     appointmentTime: String
+    appointmentType: String
+    appointmentCost: String
   }
 
   type Auth {
@@ -51,8 +53,7 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     addStylist(stylistName: String!): Stylist
     addService(serviceName: String!, serviceDescription: String, servicePrice: String!, customerNotes: String): Service
-    addAppointment(customerName: String!, stylistName: String!, appointmentDate: String!, appointmentTime: String!
-    ): Appointment
+    addAppointment(customerName: String!, stylistName: String!, appointmentDate: String!, appointmentTime: String!, appointmentType: String!, appointmentCost: String!): Appointment
     removeAppointment(appointmentId: ID!): Appointment
   }
 `;

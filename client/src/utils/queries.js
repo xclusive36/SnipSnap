@@ -29,6 +29,8 @@ export const QUERY_APPOINTMENTS = gql`
       stylistName
       appointmentDate
       appointmentTime
+      appointmentType
+      appointmentCost
     }
   }
 `;
@@ -41,6 +43,8 @@ export const QUERY_APPOINTMENT = gql`
       stylistName
       appointmentDate
       appointmentTime
+      appointmentType
+      appointmentCost
     }
   }
 `;
@@ -53,6 +57,8 @@ export const QUERY_APPOINTMENT_BY_USER = gql`
       stylistName
       appointmentDate
       appointmentTime
+      appointmentType
+      appointmentCost
     }
   }
 `;
@@ -69,6 +75,8 @@ export const QUERY_USER = gql`
         stylistName
         appointmentDate
         appointmentTime
+        appointmentType
+        appointmentCost
       }
     }
   }
@@ -86,6 +94,8 @@ export const QUERY_ME = gql`
         stylistName
         appointmentDate
         appointmentTime
+        appointmentType
+        appointmentCost
       }
     }
   }

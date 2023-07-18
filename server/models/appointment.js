@@ -6,6 +6,8 @@ const appointmentSchema = new mongoose.Schema({
   stylistName: { type: String, required: true },
   appointmentDate: { type: String, required: true },
   appointmentTime: { type: String, required: true },
+  appointmentType: { type: String, required: true },
+  appointmentCost: { type: String, required: true },
 });
 
 const Appointment = mongoose.model('Appointment', appointmentSchema);

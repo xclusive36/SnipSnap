@@ -65,7 +65,14 @@ const resolvers = {
     },
     addAppointment: async (
       parent,
-      { customerName, stylistName, appointmentDate, appointmentTime },
+      {
+        customerName,
+        stylistName,
+        appointmentDate,
+        appointmentTime,
+        appointmentType,
+        appointmentCost,
+      },
       context
     ) => {
       if (context.user) {
@@ -74,6 +81,8 @@ const resolvers = {
           stylistName,
           appointmentDate,
           appointmentTime,
+          appointmentType,
+          appointmentCost,
         });
 
         await User.findOneAndUpdate(
