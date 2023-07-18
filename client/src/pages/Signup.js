@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { IonContent, IonInput, IonButton, IonText } from "@ionic/react";
+import {
+  IonCard,
+  IonCardContent,
+  IonInput,
+  IonButton,
+  IonText,
+  IonItem,
+} from "@ionic/react";
 import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
@@ -38,46 +45,54 @@ const Signup = () => {
   };
 
   return (
-    <IonContent className="ion-padding">
-      {data ? (
-        <p>
-          Success! You may now head <Link to="/">back to the homepage.</Link>
-        </p>
-      ) : (
-        <form onSubmit={handleFormSubmit}>
-          <IonInput
-            placeholder="Your username"
-            name="username"
-            type="text"
-            value={formState.username}
-            onIonChange={handleChange}
-          />
-          <IonInput
-            placeholder="Your email"
-            name="email"
-            type="email"
-            value={formState.email}
-            onIonChange={handleChange}
-          />
-          <IonInput
-            placeholder="******"
-            name="password"
-            type="password"
-            value={formState.password}
-            onIonChange={handleChange}
-          />
-          <IonButton expand="block" type="submit" className="ion-margin-top">
-            Submit
-          </IonButton>
-        </form>
-      )}
+    <IonCard>
+      <IonCardContent className="ion-padding">
+        {data ? (
+          <p>
+            Success! You may now head <Link to="/">back to the homepage.</Link>
+          </p>
+        ) : (
+          <form onSubmit={handleFormSubmit}>
+            <IonItem>
+              <IonInput
+                placeholder="Your username"
+                name="username"
+                type="text"
+                value={formState.username}
+                onIonChange={handleChange}
+              />
+            </IonItem>
+            <IonItem>
+              <IonInput
+                placeholder="Your email"
+                name="email"
+                type="email"
+                value={formState.email}
+                onIonChange={handleChange}
+              />
+            </IonItem>
+            <IonItem>
+              <IonInput
+                placeholder="Your new password"
+                name="password"
+                type="password"
+                value={formState.password}
+                onIonChange={handleChange}
+              />
+            </IonItem>
+            <IonButton expand="block" type="submit" className="ion-margin-top">
+              Submit
+            </IonButton>
+          </form>
+        )}
 
-      {error && (
-        <div className="ion-margin-top ion-text-center">
-          <IonText color="danger">{error.message}</IonText>
-        </div>
-      )}
-    </IonContent>
+        {error && (
+          <div className="ion-margin-top ion-text-center">
+            <IonText color="danger">{error.message}</IonText>
+          </div>
+        )}
+      </IonCardContent>
+    </IonCard>
   );
 };
 
