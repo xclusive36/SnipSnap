@@ -81,14 +81,19 @@ const Home = () => {
     try {
       // try
       const customerName = Auth.getProfile().data.username; // Get the customer name from the Auth object.
-      const serviceId = e.target[0].value; // Get the service ID from the form.
-      let appointmentDateAndTime = e.target[1].value; // Get the appointment date from the form.
+      const appointmentType = e.target[0].value; // Get the appointment type from the form.
+      const serviceId = e.target[1].value; // Get the service ID from the form.
+      let appointmentDateAndTime = e.target[2].value; // Get the appointment date from the form.
       appointmentDateAndTime = appointmentDateAndTime.split("T"); // Split the date and time string into an array.
       const appointmentDate = appointmentDateAndTime[0]; // Get the appointment date from the array.
       const appointmentTime = appointmentDateAndTime[1].substring(
         0,
         appointmentDateAndTime[1].length - 3
       ); // Get the appointment time from the array and remove the seconds.
+      let appointmentCost = services.find(
+        (service) => service.serviceName === appointmentType
+      ); // Get the appointment cost from the services array.
+      appointmentCost = appointmentCost.servicePrice;
 
       addAppointment({
         // Add the appointment to the database using the variables from the form.
@@ -98,6 +103,8 @@ const Home = () => {
           stylistName: serviceId,
           appointmentDate: appointmentDate,
           appointmentTime: appointmentTime,
+          appointmentType: appointmentType,
+          appointmentCost: appointmentCost,
         },
         context: headers, // set context to headers
       });
@@ -177,6 +184,23 @@ const Home = () => {
                     services.map((service) => (
                       <IonSelectOption key={service._id}>
                         {service.serviceName}
+                      </IonSelectOption>
+                    ))
+                  )}
+                </IonSelect>
+              </IonItem>
+              <IonItem>
+                <IonSelect
+                  label="Select a stylist"
+                  labelPlacement="floating"
+                  disabled={Auth.loggedIn() ? false : true}
+                >
+                  {stylistLoading ? (
+                    <div>Loading Stylists...</div>
+                  ) : (
+                    stylists.map((stylist) => (
+                      <IonSelectOption key={stylist._id}>
+                        {stylist.stylistName}
                       </IonSelectOption>
                     ))
                   )}
