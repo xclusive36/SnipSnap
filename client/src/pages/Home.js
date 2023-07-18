@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Auth from "../utils/auth";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_SERVICES, QUERY_STYLISTS } from "../utils/queries";
-import { ADD_APPOINTMENT, REMOVE_APPOINTMENT } from "../utils/mutations";
+import { ADD_APPOINTMENT } from "../utils/mutations";
 
 import {
   IonDatetime,
@@ -31,7 +31,6 @@ const Home = () => {
   const { loading: serviceLoading, data: serviceData } =
     useQuery(QUERY_SERVICES); // GraphQL query for services.
   const [addAppointment] = useMutation(ADD_APPOINTMENT); // GraphQL mutation for appointments.
-  const [removeAppointment] = useMutation(REMOVE_APPOINTMENT); // GraphQL mutation for appointments.
   const [stylists, setStylists] = useState([]); // Set initial state for stylists array.
   const [services, setServices] = useState([]); // Set initial state for services array.
 
@@ -90,15 +89,6 @@ const Home = () => {
         0,
         appointmentDateAndTime[1].length - 3
       ); // Get the appointment time from the array and remove the seconds.
-
-      // removeAppointment({
-      //   // Remove the appointment from the database using the variables from the form.
-      //   // The variables are defined in the REMOVE_APPOINTMENT mutation in client/src/utils/mutations.js.
-      //   variables: {
-      //     appointmentId: "64b40de3027d09e3d53af3d9",
-      //   },
-      //   context: headers, // set context to headers
-      // });
 
       addAppointment({
         // Add the appointment to the database using the variables from the form.
@@ -207,12 +197,12 @@ const Home = () => {
               >
                 {Auth.loggedIn() ? "Book Now!" : "Login to Book!"}
               </IonButton>
-              <IonToast 
-              isOpen={isOpen}
-              message="Your Appointment was booked!"
-              onDidDismiss={() => setIsOpen(false)}
-              duration={5000}>
-              </IonToast>
+              <IonToast
+                isOpen={isOpen}
+                message="Your Appointment was booked!"
+                onDidDismiss={() => setIsOpen(false)}
+                duration={5000}
+              ></IonToast>
             </IonList>
           </form>
         </IonCardContent>
