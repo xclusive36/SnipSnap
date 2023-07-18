@@ -3,7 +3,7 @@ import { Navigate, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import { IonPage, IonToolbar, IonList, IonItem, IonLabel, IonText } from '@ionic/react';
 
-import { QUERY_USER, QUERY_ME } from '../utils/queries';
+import { QUERY_USER, QUERY_ME, QUERY_APPOINTMENT_BY_USER } from '../utils/queries';
 
 import Auth from '../utils/auth';
 
@@ -14,6 +14,8 @@ const Profile = () => {
     variables: { username: userParam },
   });
 
+  const { loading: appointmentloading, data: appointmentsData } = useQuery(QUERY_APPOINTMENT_BY_USER);
+
   const user = data?.me || data?.user || {};
 
   // Navigate to personal profile page if the username is yours
@@ -21,7 +23,7 @@ const Profile = () => {
     return <Navigate to="/me" />;
   }
 
-  if (loading) {
+  if (loading || appointmentloading) {
     return <div>Loading...</div>;
   }
 
@@ -29,17 +31,13 @@ const Profile = () => {
     return (
       <IonPage>
         <IonToolbar>
-
           <h4>You need to be logged in</h4>
-
         </IonToolbar>
         <IonText>
-          
           <h4>
             You need to be logged in to see this. Use the navigation links above to
             sign up or log in!
           </h4>
-
         </IonText>
       </IonPage>
     );
@@ -48,24 +46,20 @@ const Profile = () => {
   return (
     <IonPage>
       <IonToolbar>
-        
         <h2>
           Viewing {userParam ? `${user.username}'s` : 'your'} profile.
         </h2>
-
       </IonToolbar>
       <IonList>
-        {user?.appointments?.length ? (
-          user.appointments.map((appointment, index) => (
+        {appointmentsData?.length ? (
+          appointmentsData.map((appointment, index) => (
             <IonItem key={index}>
               <IonLabel>{appointment.title}</IonLabel>
             </IonItem>
           ))
         ) : (
           <IonText>
-
             <p>No appointments found.</p>
-            
           </IonText>
         )}
       </IonList>
