@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Navigate, useParams } from "react-router-dom";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { REMOVE_APPOINTMENT } from "../utils/mutations";
 import {
   IonPage,
@@ -14,7 +14,7 @@ import {
   IonButton,
   IonIcon,
   IonToast,
-  IonTitle,
+  useIonAlert,
 } from "@ionic/react";
 
 import {
@@ -28,10 +28,10 @@ import { closeCircleOutline } from "ionicons/icons";
 
 const Profile = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [userAppointments, setUserAppointments] = useState([]); // Set initial state for appointments array.
   const [removeAppointment] = useMutation(REMOVE_APPOINTMENT);
-
   const { username: userParam } = useParams();
+  const [presentAlert] = useIonAlert();
 
   const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
     variables: { username: userParam },
@@ -44,14 +44,11 @@ const Profile = () => {
     }
   );
 
-  const [userAppointments, setUserAppointments] = useState([]); // Set initial state for appointments array.
-
   useEffect(() => {
     // useEffect hook to set state for appointments.
     if (appointmentsData) {
       // If appointmentsData is available, then...
       setUserAppointments(appointmentsData.appointmentByUser); // Set the state for appointments.
-      console.log(appointmentsData.appointmentByUser);
     }
   }, [appointmentsData]); // Run this hook when appointmentsData changes.
 
@@ -77,46 +74,31 @@ const Profile = () => {
     return <div>Loading...</div>;
   }
 
-  const handleSubmit = (e) => {
-    // Handle form submission.
-    e.preventDefault(); // Prevent default form submission.
+  const handleDelete = (e, appointmentId, index) => {
+    // Define the handleDelete function.
+    e.preventDefault(); // Prevent the default form action.
+    const headers = {
+      // define headers variable for simplicity
+      headers: {
+        // define headers
+        Authorization: `Bearer ${Auth.getToken()}`, // set Authorization to Bearer token
+      },
+    };
 
     try {
-      // try
-      const customerName = Auth.getProfile().data.username; // Get the customer name from the Auth object.
-      const appointmentType = e.target[0].value; // Get the appointment type from the form.
-      const serviceId = e.target[1].value; // Get the service ID from the form.
-      let appointmentDateAndTime = e.target[2].value; // Get the appointment date from the form.
-      appointmentDateAndTime = appointmentDateAndTime.split("T"); // Split the date and time string into an array.
-      const appointmentDate = appointmentDateAndTime[0]; // Get the appointment date from the array.
-      const appointmentTime = appointmentDateAndTime[1].substring(
-        0,
-        appointmentDateAndTime[1].length - 3
-      ); // Get the appointment time from the array and remove the seconds.
-      let appointmentCost = services.find(
-        (service) => service.serviceName === appointmentType
-      ); // Get the appointment cost from the services array.
-      appointmentCost = appointmentCost.servicePrice;
-
       removeAppointment({
-        // Remove the appointment to the database using the variables from the form.
-        // The variables are defined in the REMOVE_APPOINTMENT mutation in client/src/utils/mutations.js.
-        variables: {
-          customerName: customerName,
-          stylistName: serviceId,
-          appointmentDate: appointmentDate,
-          appointmentTime: appointmentTime,
-          appointmentType: appointmentType,
-          appointmentCost: appointmentCost,
-        },
+        // run removeAppointment mutation
+        variables: { appointmentId: appointmentId }, // set variables
+        context: headers, // set context to headers
       });
-      setIsOpen(true);
+      setIsOpen(true); // setIsOpen to true
       console.log("Appointment cancelled!"); // console.log("Appointment cancelled!")
-      } catch (err) {
-      // catch
-      console.error(err); // console.error(err)
-      }
+      window.location.reload(); // reload the page
+    } catch (err) {
+      // catch errors
+      console.error(err); // console.error(err) to the console
     }
+  };
 
   if (!user?.username) {
     return (
@@ -141,11 +123,34 @@ const Profile = () => {
         {userAppointments.length ? (
           userAppointments.map((appointment, index) => (
             <IonItem key={index}>
-              <IonButton color="danger" slot="start" fill="clear">
+              <IonButton
+                onClick={(e) =>
+                  presentAlert({
+                    header: "Delete Appointment",
+                    subHeader:
+                      "Are you sure you want to delete this appointment?",
+                    message: "This action cannot be undone.",
+                    buttons: [
+                      {
+                        text: "Cancel",
+                        role: "cancel",
+                      },
+                      {
+                        text: "OK",
+                        role: "confirm",
+                        handler: () => {
+                          handleDelete(e, appointment._id, index);
+                        },
+                      },
+                    ],
+                  })
+                }
+                color="danger"
+                slot="start"
+              >
                 <IonIcon slot="icon-only" icon={closeCircleOutline} />
               </IonButton>
               <IonLabel className="ion-text-wrap">
-              <form onSubmit={handleSubmit}>
                 <IonCardTitle>{appointment.appointmentType}</IonCardTitle>
                 <IonCardSubtitle>
                   Scheduled on: {appointment.appointmentDate} at{" "}
@@ -153,17 +158,12 @@ const Profile = () => {
                   <br />
                   with: {appointment.stylistName}
                 </IonCardSubtitle>
-
-                <IonButton type="submit" expand="block">
-                  <IonTitle>
-                    Cancel Appointment
-                  </IonTitle>
-                </IonButton>
                 <IonToast
-                  isOpen={isOpen} message="Your appointment was cancelled!" onDidDismiss={() => setIsOpen(false)} duration={5000}>
-                </IonToast>
-              </form>
-              
+                  isOpen={isOpen}
+                  message="Your appointment was cancelled! Reloading page..."
+                  onDidDismiss={() => setIsOpen(false)}
+                  duration={5000}
+                ></IonToast>
               </IonLabel>
               <IonText slot="end">{appointment.appointmentCost}</IonText>
             </IonItem>
