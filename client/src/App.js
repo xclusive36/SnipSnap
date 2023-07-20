@@ -34,6 +34,7 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
+// Create the Apollo client with authentication middleware and a cache
 const client = new ApolloClient({
   // Set up our client to execute the `authLink` middleware prior to making the request to our GraphQL API
   link: authLink.concat(httpLink),
@@ -42,21 +43,32 @@ const client = new ApolloClient({
 
 function App() {
   return (
+    // Provide the Apollo client to the entire app using ApolloProvider
     <ApolloProvider client={client}>
       <Router>
+        {/* Wrap the entire app with an IonPage to set up the Ionic page structure */}
         <IonPage>
+          {/* Header component for the app */}
           <IonHeader>
             <Header />
           </IonHeader>
+          {/* Main content of the app */}
           <IonContent className="ion-padding">
+            {/* Define the app routes */}
             <Routes>
+              {/* Home page route */}
               <Route path="/" element={<Home />} />
+              {/* Login page route */}
               <Route path="/login" element={<Login />} />
+              {/* Signup page route */}
               <Route path="/signup" element={<Signup />} />
+              {/* User profile page route for the currently logged-in user */}
               <Route path="/me" element={<Profile />} />
+              {/* User profile page route for other users */}
               <Route path="/profiles/:username" element={<Profile />} />
             </Routes>
           </IonContent>
+          {/* Footer component for the app */}
           <IonFooter>
             <Footer />
           </IonFooter>
