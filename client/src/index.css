@@ -2,6 +2,11 @@
 http://ionicframework.com/docs/theming/ */
 
 /** Ionic CSS Variables **/
+.imgpadding{
+  width:200px!important;
+  margin: 0 auto!important;
+}
+
 :root {
   --ion-color-primary: #7248b1;
   --ion-color-primary-rgb: 114, 72, 177;
