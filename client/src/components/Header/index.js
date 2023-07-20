@@ -43,7 +43,10 @@ const Header = () => {
           {Auth.loggedIn() ? (
             <>
               {location.pathname === "/" && (
-                <IonButton routerLink="/me">My Appointments</IonButton>
+                <>
+                  <IonButton routerLink="/me">My Appointments</IonButton>
+                  <IonButton onClick={toggleAboutModal}>About</IonButton>
+                </>
               )}
               {location.pathname !== "/" && (
                 <IonButton onClick={logout}>Logout</IonButton>
