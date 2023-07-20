@@ -1,0 +1,32 @@
+[
+  {
+    "serviceName": "Haircut",
+    "serviceDescription": "",
+    "servicePrice": "$29.99",
+    "customerNotes": ""
+  },
+  {
+    "serviceName": "Color",
+    "serviceDescription": "",
+    "servicePrice": "$74.99",
+    "customerNotes": ""
+  },
+  {
+    "serviceName": "Perm",
+    "serviceDescription": "",
+    "servicePrice": "$79.99",
+    "customerNotes": ""
+  },
+  {
+    "serviceName": "Extensions",
+    "serviceDescription": "",
+    "servicePrice": "$299.99",
+    "customerNotes": ""
+  },
+  {
+    "serviceName": "Style",
+    "serviceDescription": "",
+    "servicePrice": "$59.99",
+    "customerNotes": ""
+  }
+]
