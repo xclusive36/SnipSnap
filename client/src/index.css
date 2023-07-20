@@ -96,14 +96,14 @@ http://ionicframework.com/docs/theming/ */
     --ion-color-success-shade: #196052;
     --ion-color-success-tint: #337c6d;
   
-    --ion-color-warning: #0c3c32;
+    --ion-color-warning: #caef11;
     --ion-color-warning-rgb: 12,60,50;
     --ion-color-warning-contrast: #ffffff;
     --ion-color-warning-contrast-rgb: 255,255,255;
     --ion-color-warning-shade: #0b352c;
     --ion-color-warning-tint: #245047;
   
-    --ion-color-danger: #04201a;
+    --ion-color-danger: #bb1c1c;
     --ion-color-danger-rgb: 4,32,26;
     --ion-color-danger-contrast: #ffffff;
     --ion-color-danger-contrast-rgb: 255,255,255;
