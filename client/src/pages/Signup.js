@@ -13,13 +13,17 @@ import { ADD_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
 
 const Signup = () => {
+  // State to manage form input values
   const [formState, setFormState] = useState({
     username: "",
     email: "",
     password: "",
   });
+
+  // Use mutation to add a new user
   const [addUser, { error, data }] = useMutation(ADD_USER);
 
+  // Function to handle form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -29,15 +33,17 @@ const Signup = () => {
     });
   };
 
+  // Function to handle form submission
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
 
     try {
+      // Execute the addUser mutation with the formState values
       const { data } = await addUser({
         variables: { ...formState },
       });
 
+      // If successful, log in the user with the returned token
       Auth.login(data.addUser.token);
     } catch (e) {
       console.error(e);
@@ -47,11 +53,13 @@ const Signup = () => {
   return (
     <IonCard>
       <IonCardContent className="ion-padding">
+        {/* If data exists (successful user creation), show success message */}
         {data ? (
           <p>
             Success! You may now head <Link to="/">back to the homepage.</Link>
           </p>
         ) : (
+          /* If no data (user not yet created), show the signup form */
           <form onSubmit={handleFormSubmit}>
             <IonItem>
               <IonInput
@@ -86,6 +94,7 @@ const Signup = () => {
           </form>
         )}
 
+        {/* Show error message if there's an error */}
         {error && (
           <div className="ion-margin-top ion-text-center">
             <IonText color="danger">{error.message}</IonText>
