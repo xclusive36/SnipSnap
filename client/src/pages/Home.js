@@ -119,35 +119,39 @@ const Home = () => {
   return (
     <>
       <IonCard>
-        <IonCardHeader>
+        <IonCardHeader color="secondary">
           <IonCardTitle>Our Address: </IonCardTitle>
         </IonCardHeader>
-        <IonCardContent>{businessAdress}</IonCardContent>
-      </IonCard>
-      <IonCard>
-        <IonCardHeader>
-          <IonCardTitle>Our Stylists: </IonCardTitle>
-        </IonCardHeader>
-        <IonCardContent className="ion-text-center">
-          {stylistLoading ? (
-            <div>Loading Stylists...</div>
-          ) : (
-            stylists.map((stylist) => (
-              <IonChip key={stylist._id}>
-                <IonAvatar>
-                  <img
-                    alt="Silhouette of a person's head"
-                    src="https://ionicframework.com/docs/img/demos/avatar.svg"
-                  />
-                </IonAvatar>
-                <IonLabel>{stylist.stylistName}</IonLabel>
-              </IonChip>
-            ))
-          )}
+        <IonCardContent>
+          <p className="ion-padding-top">{businessAdress}</p>
         </IonCardContent>
       </IonCard>
       <IonCard>
-        <IonCardHeader>
+        <IonCardHeader color="secondary">
+          <IonCardTitle>Our Stylists: </IonCardTitle>
+        </IonCardHeader>
+        <IonCardContent className="ion-text-center">
+          <div className="ion-padding">
+            {stylistLoading ? (
+              <div>Loading Stylists...</div>
+            ) : (
+              stylists.map((stylist) => (
+                <IonChip key={stylist._id}>
+                  <IonAvatar>
+                    <img
+                      alt="Silhouette of a person's head"
+                      src="https://ionicframework.com/docs/img/demos/avatar.svg"
+                    />
+                  </IonAvatar>
+                  <IonLabel>{stylist.stylistName}</IonLabel>
+                </IonChip>
+              ))
+            )}
+          </div>
+        </IonCardContent>
+      </IonCard>
+      <IonCard>
+        <IonCardHeader color="secondary">
           <IonCardTitle>Our Services: </IonCardTitle>
         </IonCardHeader>
         <IonCardContent>
@@ -166,7 +170,7 @@ const Home = () => {
         </IonCardContent>
       </IonCard>
       <IonCard>
-        <IonCardHeader>
+        <IonCardHeader color="secondary">
           <IonCardTitle>Book Your Appointment Here!</IonCardTitle>
         </IonCardHeader>
         <IonCardContent>
