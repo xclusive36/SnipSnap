@@ -8,6 +8,7 @@ Our app features an easy-to-use interface created using the latest technologies.
 ## Table of Contents  
 - [Installation](#installation)   
 - [Usage](#usage)   
+- [Screenshot](#screenshot)
 - [Demo](#demo)  
 - [Technologies Used](#technologies-used)
 - [Credits](#credits)   
@@ -24,7 +25,11 @@ Once built it will reside in the client folder
 Start the application   
 ```npm start```
 
+## Screenshot
+![Screenshot](./ScreenShot.png)
+
 ## Demo
+- [Deployed Application](https://snipsnapsalon-cac486d1b963.herokuapp.com/)
 
 ## Technologies Used
 - React
