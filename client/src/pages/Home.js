@@ -3,6 +3,7 @@ import Auth from "../utils/auth";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_SERVICES, QUERY_STYLISTS } from "../utils/queries";
 import { ADD_APPOINTMENT } from "../utils/mutations";
+import Logo from "../images/SnipSnap.jpg";
 
 import {
   IonDatetime,
@@ -20,6 +21,7 @@ import {
   IonSelectOption,
   IonButton,
   IonToast,
+  IonImg,
 } from "@ionic/react"; // Import Ionic components.
 
 const Home = () => {
@@ -118,6 +120,10 @@ const Home = () => {
 
   return (
     <>
+    <IonImg
+      className="imgpadding"
+      src={Logo}
+    ></IonImg>
       <IonCard>
         <IonCardHeader color="secondary">
           <IonCardTitle>Our Address: </IonCardTitle>
