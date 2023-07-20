@@ -15,6 +15,7 @@ import { arrowBackOutline } from "ionicons/icons";
 
 const Header = () => {
   const location = useLocation();
+
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
@@ -30,7 +31,9 @@ const Header = () => {
 
   return (
     <header>
+      {/* Toolbar with primary color */}
       <IonToolbar color="primary">
+        {/* Show back button if not on the home page */}
         {location.pathname !== "/" && (
           <IonButtons slot="start">
             <IonButton routerLink="/">
@@ -38,22 +41,27 @@ const Header = () => {
             </IonButton>
           </IonButtons>
         )}
+        {/* Title */}
         <IonTitle mode="md">SnipSnap</IonTitle>
         <IonButtons slot="end">
+          {/* If the user is logged in */}
           {Auth.loggedIn() ? (
             <>
+              {/* Show "My Appointments" button if on the home page */}
               {location.pathname === "/" && (
                 <IonButton routerLink="/me">My Appointments</IonButton>
               )}
+              {/* Show "Logout" button if not on the home page */}
               {location.pathname !== "/" && (
                 <IonButton onClick={logout}>Logout</IonButton>
               )}
             </>
           ) : (
+            // Show "Login", "Signup", and "About" buttons if not logged in
             <>
               <IonButton routerLink="/login">Login</IonButton>
               <IonButton routerLink="/signup">Signup</IonButton>
-              {/* Add the About button */}
+              {/* Add the "About" button */}
               <IonButton onClick={toggleAboutModal}>About</IonButton>
             </>
           )}
@@ -71,10 +79,11 @@ const Header = () => {
           </IonToolbar>
         </IonHeader>
         <IonContent className="ion-padding">
-          {/* Flipped section: How to Use the App */}
+          {/* How to Use the App */}
           <h2 className="about-modal-heading">How to Use the App</h2>
           <p>To book an appointment, follow these steps:</p>
           <ol>
+            {/* Step-by-step instructions */}
             <li>
               <strong>Account Creation:</strong> Sign up for an account to
               access our booking system. Provide essential details for a smooth
@@ -100,24 +109,25 @@ const Header = () => {
               page.
             </li>
           </ol>
-          <p>Experience hassle-free booking with us today!</p>
           {/* Add other content for the How to Use the App section */}
 
+          {/* Contact Information */}
           <h2 className="about-modal-heading">Contact Information</h2>
           <p>
             You can get directly in contact with one of our stylists by sending
-            and email to{" "}
+            an email to{" "}
             <a
               className="about-modal-link"
               href="https://github.com/xclusive36/SnipSnap"
             >
               https://github.com/xclusive36/SnipSnap
             </a>{" "}
-            or calling us on our business hours at 1-800-SNIP.{" "}
+            or calling us during business hours at 1-800-SNIP.
           </p>
 
+          {/* Close button for the About Modal */}
           <IonButton expand="block" onClick={() => setShowAboutModal(false)}>
-            Click out of this pop-up to close it
+            Click outside this pop-up to close it
           </IonButton>
         </IonContent>
       </IonModal>
