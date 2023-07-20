@@ -117,7 +117,7 @@ const Header = () => {
           </p>
 
           <IonButton expand="block" onClick={() => setShowAboutModal(false)}>
-            Click out of this modal to close it
+            Click out of this pop-up to close it
           </IonButton>
         </IonContent>
       </IonModal>

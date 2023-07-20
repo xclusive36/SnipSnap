@@ -223,7 +223,7 @@ const Home = () => {
                 expand="block"
                 disabled={Auth.loggedIn() ? false : true}
               >
-                {Auth.loggedIn() ? "Book Now!" : "Login to Book!"}
+                {Auth.loggedIn() ? "Book Now!" : "Sign up / Log in to Book!"}
               </IonButton>
               <IonToast
                 isOpen={isOpen}
