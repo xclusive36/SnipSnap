@@ -16,7 +16,7 @@ const Login = (props) => {
   const [formState, setFormState] = useState({ email: "", password: "" });
   const [login, { error, data }] = useMutation(LOGIN_USER);
 
-  // update state based on form input changes
+  // Function to update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -26,7 +26,7 @@ const Login = (props) => {
     });
   };
 
-  // submit form
+  // Function to handle form submission
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -34,12 +34,13 @@ const Login = (props) => {
         variables: { ...formState },
       });
 
+      // Call Auth.login function if login is successful
       Auth.login(data.login.token);
     } catch (e) {
       console.error(e);
     }
 
-    // clear form values
+    // Clear form values after submission
     setFormState({
       email: "",
       password: "",
@@ -48,11 +49,13 @@ const Login = (props) => {
 
   return (
     <main className="flex-row justify-center">
+      {/* If login is successful, show success message */}
       {data ? (
         <p>
           Success! You may now head <Link to="/">back to the homepage.</Link>
         </p>
       ) : (
+        // If login is not successful, show login form
         <IonCard>
           <IonCardContent>
             <form onSubmit={handleFormSubmit}>
@@ -80,6 +83,7 @@ const Login = (props) => {
                   onIonChange={handleChange}
                 />
               </IonItem>
+              {/* Submit button */}
               <IonButton
                 expand="full"
                 style={{ cursor: "pointer" }}
@@ -92,6 +96,7 @@ const Login = (props) => {
         </IonCard>
       )}
 
+      {/* Show error message if login fails */}
       {error && (
         <div className="my-3 p-3 bg-danger text-white">{error.message}</div>
       )}
