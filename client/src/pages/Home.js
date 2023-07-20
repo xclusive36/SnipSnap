@@ -95,6 +95,10 @@ const Home = () => {
       ); // Get the appointment cost from the services array.
       appointmentCost = appointmentCost.servicePrice;
 
+      if(!appointmentType || !serviceId || !appointmentDate || !appointmentTime || !appointmentCost) {
+        return false;
+      }
+
       addAppointment({
         // Add the appointment to the database using the variables from the form.
         // The variables are defined in the ADD_APPOINTMENT mutation in client/src/utils/mutations.js.
@@ -136,7 +140,7 @@ const Home = () => {
               <div>Loading Stylists...</div>
             ) : (
               stylists.map((stylist) => (
-                <IonChip key={stylist._id}>
+                <IonChip key={stylist._id} color="primary">
                   <IonAvatar>
                     <img
                       alt="Silhouette of a person's head"
