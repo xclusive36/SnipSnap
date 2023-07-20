@@ -68,14 +68,14 @@ http://ionicframework.com/docs/theming/ */
  */
 
   body {
-    --ion-color-primary: #180830;
+    --ion-color-primary: #695785;
     --ion-color-primary-rgb: 24,8,48;
     --ion-color-primary-contrast: #ffffff;
     --ion-color-primary-contrast-rgb: 255,255,255;
     --ion-color-primary-shade: #15072a;
     --ion-color-primary-tint: #2f2145;
   
-    --ion-color-secondary: #381867;
+    --ion-color-secondary: #a586d2;
     --ion-color-secondary-rgb: 56,24,103;
     --ion-color-secondary-contrast: #ffffff;
     --ion-color-secondary-contrast-rgb: 255,255,255;

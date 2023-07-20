@@ -19,7 +19,7 @@ const Header = () => {
 
   return (
     <header>
-      <IonToolbar>
+      <IonToolbar color="primary">
         {location.pathname !== "/" && (
           <IonButtons slot="start">
             <IonButton routerLink="/">

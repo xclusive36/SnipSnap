@@ -4,7 +4,7 @@ import { IonToolbar } from "@ionic/react";
 const Footer = () => {
   return (
     <footer>
-        <IonToolbar className="ion-text-center">
+        <IonToolbar color="primary" className="ion-text-center">
           <p>Hours of Operation:</p>
           <p>Monday - Friday: 9am - 7pm</p>
           <p>Saturday: 9am - 6pm</p>
