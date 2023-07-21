@@ -9,7 +9,8 @@ const stylistSchema = new mongoose.Schema({
     type: String,       
     required: true,     
     trim: true,         
-    unique: true,       
+    unique: true, 
+  },      
 });
 
 // Create a mongoose model named 'Stylist' using the defined schema.
