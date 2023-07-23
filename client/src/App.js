@@ -13,6 +13,7 @@ import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
+import About from "./pages/About";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -66,6 +67,8 @@ function App() {
               <Route path="/me" element={<Profile />} />
               {/* User profile page route for other users */}
               <Route path="/profiles/:username" element={<Profile />} />
+              {/* About page route */}
+              <Route path="/about" element={<About />} />
             </Routes>
           </IonContent>
           {/* Footer component for the app */}

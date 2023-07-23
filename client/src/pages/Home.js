@@ -120,18 +120,7 @@ const Home = () => {
 
   return (
     <>
-    <IonImg
-      className="imgpadding"
-      src={Logo}
-    ></IonImg>
-      <IonCard>
-        <IonCardHeader color="secondary">
-          <IonCardTitle>Our Address: </IonCardTitle>
-        </IonCardHeader>
-        <IonCardContent>
-          <p className="ion-padding-top">{businessAdress}</p>
-        </IonCardContent>
-      </IonCard>
+      <IonImg className="imgpadding" src={Logo}></IonImg>
       <IonCard>
         <IonCardHeader color="secondary">
           <IonCardTitle>Our Stylists: </IonCardTitle>
@@ -241,6 +230,16 @@ const Home = () => {
           </form>
         </IonCardContent>
       </IonCard>
+      <IonText className="ion-text-center ion-padding-top">
+        <IonCardTitle className="ion-padding-top">Our Address:</IonCardTitle>
+        {/* Business address */}
+        <p>{businessAdress}</p>
+        {/* Operating hours */}
+        <IonCardTitle className="ion-padding-top">Hours of Operation:</IonCardTitle>
+        <p>Monday - Friday: 9am - 7pm</p>
+        <p>Saturday: 9am - 6pm</p>
+        <p>Sunday: 10am - 5pm</p>
+      </IonText>
     </>
   );
 };
