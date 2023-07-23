@@ -47,10 +47,14 @@ Start the application
 - GitHub
 
 ## Contributions
-Joshua Cavell - Assigned roles and tasks, fixed errors as they popped up, set CSS framework, things here and there.   
+Joshua Cavell - Assigned roles and tasks, fixed errors as they popped up, set CSS framework, things here and there.  
+     
 Nicholas Loeffler - About modal, JavaScript for Signup page, implemented Ionic framework, minor adjustments.   
-Alvin Turner - Created models and converted HTML to Ionic framework, added bulk comments to code.
-Mary Dault - Create HTML template, add Ionic framework to Login page, add information to README, create logo and site mockup, create Home page
+    
+Alvin Turner - Created models and converted HTML to Ionic framework, added bulk comments to code.     
+    
+Mary Dault - Create HTML template, add Ionic framework to Login page, add information to README, create logo and site mockup, create Home page     
+    
 Griffon Dean - Add toast element to Home page, add remove feature to Profile page    
 
 ## Credits
