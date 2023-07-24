@@ -39,9 +39,9 @@ const About = () => {
         email to{" "}
         <a
           className="about-modal-link"
-          href="mailto:HeadMistress@snipsnapsalon.com"
+          href="mailto:sales@snipsnapsalon.com"
         >
-          HeadMistress@snipsnapsalon.com
+          sales@snipsnapsalon.com
         </a>{" "}
         or calling us during business hours at 1-800-SNIP-SNAP.
       </p>
