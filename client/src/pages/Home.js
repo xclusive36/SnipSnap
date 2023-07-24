@@ -36,6 +36,14 @@ const Home = () => {
   const [stylists, setStylists] = useState([]); // Set initial state for stylists array.
   const [services, setServices] = useState([]); // Set initial state for services array.
 
+  const [formValidation, setFormValidation] = useState({
+    // Set initial state for form validation.
+    loggedIn: Auth.loggedIn(), // Set loggedIn to the value of Auth.loggedIn().
+    service: false, // Set service to false.
+    stylist: false, // Set stylist to false.
+    date: false, // Set date to false.
+  });
+
   const isWeekday = (dateString) => {
     // Checks if date is a weekday for the calendar.
     // Returns true if it is a weekday, false if it is not.
@@ -95,7 +103,7 @@ const Home = () => {
       let appointmentCost = services.find(
         (service) => service.serviceName === appointmentType
       ); // Get the appointment cost from the services array.
-      appointmentCost = appointmentCost.servicePrice;
+      appointmentCost = appointmentCost.servicePrice; // Set the appointment cost to the service price.
 
       addAppointment({
         // Add the appointment to the database using the variables from the form.
@@ -175,6 +183,9 @@ const Home = () => {
                 <IonSelect
                   label="Select a service"
                   labelPlacement="floating"
+                  onIonChange={() => {
+                    setFormValidation({ ...formValidation, service: true });
+                  }}
                   disabled={Auth.loggedIn() ? false : true}
                 >
                   {serviceLoading ? (
@@ -192,6 +203,9 @@ const Home = () => {
                 <IonSelect
                   label="Select a stylist"
                   labelPlacement="floating"
+                  onIonChange={() => {
+                    setFormValidation({ ...formValidation, stylist: true });
+                  }}
                   disabled={Auth.loggedIn() ? false : true}
                 >
                   {stylistLoading ? (
@@ -209,6 +223,9 @@ const Home = () => {
                 <IonDatetime
                   minuteValues="0,30"
                   isDateEnabled={isWeekday}
+                  onIonChange={() => {
+                    setFormValidation({ ...formValidation, date: true });
+                  }}
                   mode="md"
                   readonly={Auth.loggedIn() ? false : true}
                 ></IonDatetime>
@@ -216,7 +233,13 @@ const Home = () => {
               <IonButton
                 type="submit"
                 expand="block"
-                disabled={Auth.loggedIn() ? false : true}
+                disabled={
+                  formValidation.service &&
+                  formValidation.stylist &&
+                  formValidation.date
+                    ? false
+                    : true
+                }
               >
                 {Auth.loggedIn() ? "Book Now!" : "Sign up / Log in to Book!"}
               </IonButton>
@@ -235,7 +258,9 @@ const Home = () => {
         {/* Business address */}
         <p>{businessAdress}</p>
         {/* Operating hours */}
-        <IonCardTitle className="ion-padding-top">Hours of Operation:</IonCardTitle>
+        <IonCardTitle className="ion-padding-top">
+          Hours of Operation:
+        </IonCardTitle>
         <p>Monday - Friday: 9am - 7pm</p>
         <p>Saturday: 9am - 6pm</p>
         <p>Sunday: 10am - 5pm</p>
