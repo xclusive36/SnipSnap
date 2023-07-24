@@ -121,7 +121,7 @@ const Profile = () => {
       <h2>Viewing {userParam ? `${user.username}'s` : "your"} profile.</h2>
       <IonList>
         {userAppointments.length ? (
-          userAppointments.map((appointment, index) => (
+          userAppointments?.map((appointment, index) => (
             <IonItem key={index}>
               <IonButton
                 onClick={(e) =>
@@ -139,7 +139,7 @@ const Profile = () => {
                         text: "OK",
                         role: "confirm",
                         handler: () => {
-                          handleDelete(e, appointment._id, index);
+                          handleDelete(e, appointment?._id, index);
                         },
                       },
                     ],
@@ -151,12 +151,12 @@ const Profile = () => {
                 <IonIcon slot="icon-only" icon={closeCircleOutline} />
               </IonButton>
               <IonLabel className="ion-text-wrap">
-                <IonCardTitle>{appointment.appointmentType}</IonCardTitle>
+                <IonCardTitle>{appointment?.appointmentType}</IonCardTitle>
                 <IonCardSubtitle>
-                  Scheduled on: {appointment.appointmentDate} at{" "}
-                  {convertTime(appointment.appointmentTime)}
+                  Scheduled on: {appointment?.appointmentDate} at{" "}
+                  {convertTime(appointment?.appointmentTime)}
                   <br />
-                  with: {appointment.stylistName}
+                  with: {appointment?.stylistName}
                 </IonCardSubtitle>
                 <IonToast
                   isOpen={isOpen}
@@ -165,7 +165,7 @@ const Profile = () => {
                   duration={5000}
                 ></IonToast>
               </IonLabel>
-              <IonText slot="end">{appointment.appointmentCost}</IonText>
+              <IonText slot="end">{appointment?.appointmentCost}</IonText>
             </IonItem>
           ))
         ) : (
